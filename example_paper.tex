@@ -1,0 +1,140 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% ICML 2015 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use the following line _only_ if you're still using LaTeX 2.09.
+%\documentstyle[icml2015,epsf,natbib]{article}
+% If you rely on Latex2e packages, like most moden people use this:
+\documentclass{article}
+
+% use Times
+\usepackage{times}
+% For figures
+\usepackage{graphicx} % more modern
+%\usepackage{epsfig} % less modern
+\usepackage{subfigure} 
+
+% For citations
+\usepackage{natbib}
+
+% For algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% As of 2011, we use the hyperref package to produce hyperlinks in the
+% resulting PDF.  If this breaks your system, please commend out the
+% following usepackage line and replace \usepackage{icml2015} with
+% \usepackage[nohyperref]{icml2015} above.
+\usepackage{hyperref}
+
+% Packages hyperref and algorithmic misbehave sometimes.  We can fix
+% this with the following command.
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Employ the following version of the ``usepackage'' statement for
+% submitting the draft version of the paper for review.  This will set
+% the note in the first column to ``Under review.  Do not distribute.''
+\usepackage{icml2015} 
+
+% Employ this version of the ``usepackage'' statement after the paper has
+% been accepted, when creating the final version.  This will set the
+% note in the first column to ``Proceedings of the...''
+%\usepackage[accepted]{icml2015}
+
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{Submission and Formatting Instructions for ICML 2015}
+
+\begin{document} 
+
+\twocolumn[
+\icmltitle{Learning Multiscale Convolutional Kernels in the Fourier Domain}
+
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2015
+% package.
+\icmlauthor{Mikael Henaff}{mbh305@nyu.edu}
+\icmladdress{Courant Institute of Mathematical Sciences}
+\icmlauthor{Joan Bruna}{bruna@cims.nyu.edu}
+\icmladdress{Facebook AI Group}
+\icmlauthor{Yann LeCun}{yann@cs.nyu.edu}
+\icmladdress{Facebook AI Group}
+
+% You may provide any keywords that you 
+% find helpful for describing your paper; these are used to populate 
+% the "keywords" metadata in the PDF but will not be shown in the document
+\icmlkeywords{boring formatting information, machine learning, ICML}
+
+\vskip 0.3in
+]
+
+\begin{abstract} 
+
+\end{abstract} 
+
+\section{Introduction}
+
+Convolutional Networks are one of the most widely-used models in computer vision. 
+They are able to improve generalization performance by exploiting stationarity and local statistics to greatly reduce the number of parameters in the model while maintaining the ability to model the data. 
+
+The well-known Convolution Theorem states that the convolution operator is diagonalized in the Fourier basis, i.e. a convolution in the spatial domain is equivalent to a pointwise multiplication in the Fourier domain. 
+This result has been exploited to accelerate training and inference using ConvNets by reusing the same Fast Fourier Transform (FFT) multiple times during each stage of the backpropagation algorithm.
+However, the passing of the weights to the frequency domain has thus far been a purely computational trick which leverages the low complexity of the FFT algorithm to compute the same weight updates as the traditional method in a more efficient manner.
+An alternate viewpoint is to learn the weights directly in the frequency domain. 
+Seen through this lense, spatial convolutions with small kernels are simply a parameterization of a low-dimensional subspace corresponding to high frequency filters. 
+We propose several alternate parameterizations which are capable of automatically adjusting the kernel size in the spatial domain by modulating the smoothness of the kernel weights in the frequency domain. 
+We show that our method is capable of outperforming classic ConvNets for large image sizes. 
+
+\section{Theory}
+
+\subsection{Backpropagation Algorithm}
+
+We briefly recall the three steps performed by the backpropagation algorithm, which is the standard method to train Convolutional networks.
+First we fix some notation: for a given layer, we have a set of inputs $x_{sf}$ indexed by $s$ and $f$, each of size $n \times n$.
+Here $s$ indicates the sample in the minibatch and $f$ indicates the feature map. 
+The output of the layer is represented by $y_{sf'}$, where $f'$ represents the output feature map. 
+The layer's trainable parameters consist of a set of weights $w_{f'f}$, each of size $k \times k$.
+
+The backpropagation algorithm consists of three steps: the forward pass
+
+\begin{equation}
+y_{sf'} = \sum_f x_{sf} \ast w_{f'f} 
+\end{equation}
+
+the backward pass
+
+\begin{equation}
+ \frac{\partial L}{\partial x_{sf}} = \sum_{f'} \frac{\partial L}{\partial y_{sf'}} \ast w_{f'f}^T
+\end{equation}
+
+and the gradient weight update
+
+\begin{equation}
+ \frac{\partial L}{\partial w_{f'f}} = \sum_{s} \frac{\partial L}{\partial y_{sf'}} \ast x_{sf}
+\end{equation}
+
+
+
+
+\section{Experiments}
+
+
+
+\bibliography{example_paper}
+\bibliographystyle{icml2015}
+
+\end{document} 
+
+
+% This document was modified from the file originally made available by
+% Pat Langley and Andrea Danyluk for ICML-2K. This version was
+% created by Lise Getoor and Tobias Scheffer, it was slightly modified  
+% from the 2010 version by Thorsten Joachims & Johannes Fuernkranz, 
+% slightly modified from the 2009 version by Kiri Wagstaff and 
+% Sam Roweis's 2008 version, which is slightly modified from 
+% Prasad Tadepalli's 2007 version which is a lightly 
+% changed version of the previous year's version by Andrew Moore, 
+% which was in turn edited from those of Kristian Kersting and 
+% Codrina Lauth. Alex Smola contributed to the algorithmic style files.  
