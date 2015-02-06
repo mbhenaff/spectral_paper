@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.15)  4 FEB 2015 19:52
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.15)  5 FEB 2015 22:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -348,46 +348,50 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 95.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 95.
-(./example_paper.bbl
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+
+
+] (./example_paper.bbl
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 128.
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-
-
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 180.
+ [2
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 128.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 180.
  (./example_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 128.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 128.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 180.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 180.
 Package rerunfilecheck Info: File `example_paper.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 128.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 180.
  ) 
 Here is how much of TeX's memory you used:
- 6102 strings out of 495028
- 88135 string characters out of 6181497
- 185137 words of memory out of 5000000
- 9247 multiletter control sequences out of 15000+600000
- 13221 words of font info for 27 fonts, out of 8000000 for 9000
+ 6114 strings out of 495028
+ 88254 string characters out of 6181497
+ 188137 words of memory out of 5000000
+ 9248 multiletter control sequences out of 15000+600000
+ 16012 words of font info for 30 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 31i,11n,45p,271b,321s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 30i,11n,45p,511b,321s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on example_paper.pdf (1 page, 86580 bytes).
+ublic/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on example_paper.pdf (2 pages, 112004 bytes).
 PDF statistics:
- 60 PDF objects out of 1000 (max. 8388607)
- 47 compressed objects within 1 object stream
- 10 named destinations out of 1000 (max. 500000)
+ 80 PDF objects out of 1000 (max. 8388607)
+ 64 compressed objects within 1 object stream
+ 18 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

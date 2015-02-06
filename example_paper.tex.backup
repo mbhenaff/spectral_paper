@@ -83,7 +83,7 @@ The well-known Convolution Theorem states that the convolution operator is diago
 This result has been exploited to accelerate training and inference using ConvNets by reusing the same Fast Fourier Transform (FFT) multiple times during each stage of the backpropagation algorithm.
 However, the passing of the weights to the frequency domain has thus far been a purely computational trick which leverages the low complexity of the FFT algorithm to compute the same weight updates as the traditional method in a more efficient manner.
 An alternate viewpoint is to learn the weights directly in the frequency domain. 
-Seen through this lense, spatial convolutions with small kernels are simply a parameterization of a low-dimensional subspace corresponding to high frequency filters. 
+Seen through this lens, spatial convolutions with small kernels are simply a parameterization of a low-dimensional subspace corresponding to high frequency filters. 
 We propose several alternate parameterizations which are capable of automatically adjusting the kernel size in the spatial domain by modulating the smoothness of the kernel weights in the frequency domain. 
 We show that our method is capable of outperforming classic ConvNets for large image sizes. 
 
@@ -96,7 +96,80 @@ First we fix some notation: for a given layer, we have a set of inputs $x_{sf}$ 
 Here $s$ indicates the sample in the minibatch and $f$ indicates the feature map. 
 The output of the layer is represented by $y_{sf'}$, where $f'$ represents the output feature map. 
 The layer's trainable parameters consist of a set of weights $w_{f'f}$, each of size $k \times k$.
-At each iteration, the weights of the network are updated using a minibatch of data, is typically represented as a 4D tensor $x_{sfij}$.
+
+The backpropagation algorithm consists of three steps, which are the forward pass, backward pass and gradient update:
+
+\begin{equation}
+y_{sf'} = \sum_f x_{sf} \ast w_{f'f} 
+\end{equation}
+
+\begin{equation}
+ \frac{\partial L}{\partial x_{sf}} = \sum_{f'} \frac{\partial L}{\partial y_{sf'}} \ast w_{f'f}^T
+ \end{equation}
+
+\begin{equation}
+ \frac{\partial L}{\partial w_{f'f}} = \sum_{s} \frac{\partial L}{\partial y_{sf'}} \ast x_{sf}
+\end{equation}
+
+Letting $\mathcal{F}$ denote the 2-D Fourier transform operator and $\odot$ denote pointwise multiplication, these updates can be reformulated as follows:
+
+\begin{equation}
+y_{sf'} = \mathcal{F}^{-1}\sum_f \mathcal{F}x_{sf} \odot \mathcal{F}w_{f'f}
+\end{equation}
+
+\begin{equation}
+ \frac{\partial L}{\partial x_{sf}} = \mathcal{F}^{-1}\sum_{f'} \mathcal{F}\frac{\partial L}{\partial y_{sf'}} \odot \overline{\mathcal{F}w_{f'f}^T}
+ \end{equation}
+
+\begin{equation}
+ \frac{\partial L}{\partial w_{f'f}} = \mathcal{F}^{-1}\sum_{s} \mathcal{F}\frac{\partial L}{\partial y_{sf'}} \odot \mathcal{F}x_{sf}
+\end{equation}
+
+Here we assume that the weight kernels are zero-padded to be the same size as the input images, hence their Fourier transforms of both are the same size. 
+
+\subsection{Spectral Networks on Images}
+
+We now consider the question of learning the weights directly in the Fourier domain.
+First, we fix some terminology. We call \textit{free weights} the parameters of the model which are learned. 
+We call the \textit{expanded weights}, the output of some function which maps the free weights to a frequency representation which is the same size as the input image.
+We will denote the free weights of one $k \times k$ feature map by $W$ and its expanded weights of size $n \times n$ by $\tilde{W}$.
+
+In the case of classical convolutional networks, the free weights and expanded weights are related as follows:
+
+\begin{equation}
+ \tilde{w} = F W F^T
+\end{equation}
+
+where $F$ denotes the first $k$ columns of the Discrete Fourier Transform (DFT) matrix.
+Note that this operation corresponds to zero-padding the $k \times k$ kernel to be of size $n \times n$ and applying a 2-D Fourier transform. 
+
+We can generalize this idea by letting 
+
+\begin{equation}
+ \tilde{w} = K W K^T
+\end{equation}
+
+for some matrix $K$. Specifically, setting $K$ to be an interpolation kernel we can encourage the expanded weights $\tilde{W}$ to be smooth, which corresponds to localized weights in the spatial domain.
+
+A justification for this is due to a statement of the Uncertainty Principle in the context of harmonic analysis, which restricts how much spatial and frequency energy can be simultaneously concentrated. 
+Specifically, the spatial and frequency variance of a function satisfy
+
+\begin{equation}
+ \sigma_{x}^2 \sigma_{\omega}^2 \geq \frac{1}{4}
+\end{equation}
+
+Intuitively, this means that the more one concentrates the spatial energy of a function, the more its energy in the frequency domain will be dispersed and vice versa.
+For certain families of functions (such as Gaussians), the inequality in equation (9) becomes an equality. 
+This indicates that for certain functions, enforcing smoothness in one domain translates into concentration in the other. 
+
+In the case of spectral networks, by learning a small number of weights and expanding them with an interpolation kernel, we obtain weights with a smooth representation in the frequency domain, and hence a well-localized support in the spatial domain. However, the smoothness in the frequency domain is not fixed, which means that in the spatial domain our convolutional kernels can have variable size. In principle, our approach should allow the learned kernels to adapt to the optimal size. 
+
+
+
+
+
+
+
 
 \section{Experiments}
 
